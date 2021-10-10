@@ -18,7 +18,8 @@ contract ScorpyNFT is ERC721URIStorage {
     function makeNFT() public {
         uint256 newItemId = _tokenIds.current();
         _safeMint(msg.sender, newItemId);
-        _setTokenURI(newItemId, 'Hiss...');
+        _setTokenURI(newItemId, 'https://jsonkeeper.com/b/MGX0');
+        console.log("A new ScorpyNFT: %s has been minted to %s",  newItemId, msg.sender);
         _tokenIds.increment();
     }
 }

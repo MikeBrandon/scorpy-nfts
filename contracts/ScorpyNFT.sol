@@ -46,8 +46,18 @@ contract ScorpyNFT is ERC721URIStorage {
 
     function makeNFT() public {
         uint256 newItemId = _tokenIds.current();
+
+        string memory first = pickRandomFirstWord(newItemId);
+        string memory second = pickRandomSecondWord(newItemId);
+        string memory third = pickRandomThirdWord(newItemId);
+
+        string memory finalSvg = string(abi.encodePacked(baseSvg, first, second, third, '</text></svg>'));
+        console.log("\n--------------------");
+        console.log(finalSvg);
+        console.log("--------------------\n");
+
         _safeMint(msg.sender, newItemId);
-        _setTokenURI(newItemId, 'data:application/json;base64,ewogICAgIm5hbWUiOiJEZXNlcnQgU2NvcnBpb24iLAogICAgImRlc2NyaXB0aW9uIjoiQSBUcnVlIExlZ2VuZCBvZiB0aGUgU2FoYXJhIiwKICAgICJpbWFnZSI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIQnlaWE5sY25abFFYTndaV04wVW1GMGFXODlJbmhOYVc1WlRXbHVJRzFsWlhRaUlIWnBaWGRDYjNnOUlqQWdNQ0F6TlRBZ016VXdJajRLSUNBZ0lEeHpkSGxzWlQ0dVltRnpaU0I3SUdacGJHdzZJSGRvYVhSbE95Qm1iMjUwTFdaaGJXbHNlVG9nYzJWeWFXWTdJR1p2Ym5RdGMybDZaVG9nTVRSd2VEc2dmVHd2YzNSNWJHVStDaUFnSUNBOGNtVmpkQ0IzYVdSMGFEMGlNVEF3SlNJZ2FHVnBaMmgwUFNJeE1EQWxJaUJtYVd4c1BTSmliR0ZqYXlJZ0x6NEtJQ0FnSUR4MFpYaDBJSGc5SWpVd0pTSWdlVDBpTlRBbElpQmpiR0Z6Y3owaVltRnpaU0lnWkc5dGFXNWhiblF0WW1GelpXeHBibVU5SW0xcFpHUnNaU0lnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJK1JHVnpjMlZ5ZENCVFkyOXljSGs4TDNSbGVIUStDand2YzNablBnPT0iCn0=');
+        _setTokenURI(newItemId, 'blank');
         console.log("A new ScorpyNFT: %s has been minted to %s",  newItemId, msg.sender);
         _tokenIds.increment();
     }

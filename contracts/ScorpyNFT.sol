@@ -59,11 +59,11 @@ contract ScorpyNFT is ERC721URIStorage {
             bytes(
                 string(
                     abi.encodePacked(
-                        "{'name': '",
+                        '{"name": "',
                         combinedWord,
-                        "', 'description': 'An extremely are collection of Scorpy NFTs.', 'image': 'data:image/svg+xml; base64,",
+                        '", "description": "An extremely are collection of Scorpy NFTs.", "image": "data:image/svg+xml;base64,',
                         Base64.encode(bytes(finalSvg)),
-                        "'}"
+                        '"}'
                     )
                 )
             )

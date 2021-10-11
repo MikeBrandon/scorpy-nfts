@@ -18,6 +18,8 @@ contract ScorpyNFT is ERC721URIStorage {
     string[] firstWords = ['Slightly', 'Totally', 'Rusty', 'Slightly', 'Very', 'Totally', 'Mega', 'Rusty', 'Slightly', 'Very', 'Rusty', 'Rusty', 'Rusty', 'Rusty', 'Rusty'];
     string[] secondWords = ['Normal', 'Normal', 'Normal', 'Normal', 'Normal', 'Rare', 'Epic', 'Epic', 'Normal', 'Normal', 'Nice', 'Nice', 'Nice', 'Nice', 'Normal'];
     string[] thirdWords = ['Scorpy', 'Scorpy', 'Scorpy', 'Scorpy', 'Scorpy', 'Scorpy', 'Scorpy', 'Scorpy', 'Scorpion', 'Scorpion', 'Scorpion', 'Scorpion', 'SKing', 'SKing', 'SGOD' ];
+    
+    event NewNFTMinted(address sender, uint256 tokenId);
 
     constructor() ERC721 ("ScorpyNFT","STING") {
         console.log('Hisss... Hisss... Imma Sting you');
@@ -82,5 +84,7 @@ contract ScorpyNFT is ERC721URIStorage {
         console.log("A new ScorpyNFT: %s has been minted to %s",  newItemId, msg.sender);
 
         _tokenIds.increment();
+
+        emit NewNFTMinted(msg.sender, newItemId);
     }
 }

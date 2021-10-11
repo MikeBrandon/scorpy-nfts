@@ -17,7 +17,7 @@ module.exports = {
   networks: {
     rinkeby: {
       url: process.env.RINKEBY_URL,
-      accounts: [RINKEBY_PK]
+      accounts: [process.env.RINKEBY_PK]
     }
   }
 };

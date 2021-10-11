@@ -6,6 +6,7 @@ import 'hardhat/console.sol';
 import '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';
 import '@openzeppelin/contracts/utils/Counters.sol';
 import '@openzeppelin/contracts/utils/Strings.sol';
+import { Base64 } from './libraries/Base64.sol';
 
 contract ScorpyNFT is ERC721URIStorage {
 
@@ -50,15 +51,36 @@ contract ScorpyNFT is ERC721URIStorage {
         string memory first = pickRandomFirstWord(newItemId);
         string memory second = pickRandomSecondWord(newItemId);
         string memory third = pickRandomThirdWord(newItemId);
+        string memory combinedWord = string(abi.encodePacked(first, second, third));
 
-        string memory finalSvg = string(abi.encodePacked(baseSvg, first, second, third, '</text></svg>'));
+        string memory finalSvg = string(abi.encodePacked(baseSvg, combinedWord, '</text></svg>'));
+        
+        string memory json = Base64.encode(
+            bytes(
+                string(
+                    abi.encodePacked(
+                        "{'name': '",
+                        combinedWord,
+                        "', 'description': 'An extremely are collection of Scorpy NFTs.', 'image': 'data:image/svg+xml; base64,",
+                        Base64.encode(bytes(finalSvg)),
+                        "'}"
+                    )
+                )
+            )
+        );
+
+        string memory finalTokenURI = string(abi.encodePacked('data:application/json;base64,', json));
+
         console.log("\n--------------------");
-        console.log(finalSvg);
+        console.log(finalTokenURI);
         console.log("--------------------\n");
 
         _safeMint(msg.sender, newItemId);
-        _setTokenURI(newItemId, 'blank');
+
+        _setTokenURI(newItemId, finalTokenURI);
+        
         console.log("A new ScorpyNFT: %s has been minted to %s",  newItemId, msg.sender);
+
         _tokenIds.increment();
     }
 }
